@@ -30,5 +30,14 @@ namespace simple_api.Mappers
                 StockId = stockId
             };
         }
+
+        public static Comment ToCommentfromUpdate(this UpdateCommentRequestDto commentDto)
+        {
+            return new Comment
+            {
+                Title = commentDto.Title,
+                Content = commentDto.Content,
+            };
+        }
     }
 }

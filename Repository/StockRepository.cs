@@ -57,7 +57,7 @@ namespace simple_api.Repository
             return _context.Stocks.AnyAsync(s => s.Id == id);
         }
 
-        public async Task<Stock?> UpdateAsync(int id, UpdateStockRequestDto updateStockRequestDto)
+        public async Task<Stock?> UpdateAsync(int id, Stock stockModel)
         {
             var stockForUpdate = await _context.Stocks.FirstOrDefaultAsync(s => s.Id == id);
 
@@ -65,12 +65,12 @@ namespace simple_api.Repository
                 return null;
             }
 
-            stockForUpdate.Symbol = updateStockRequestDto.Symbol;
-            stockForUpdate.CompanyName = updateStockRequestDto.CompanyName;
-            stockForUpdate.Purchase = updateStockRequestDto.Purchase;
-            stockForUpdate.LastDiv = updateStockRequestDto.LastDiv;
-            stockForUpdate.Industry = updateStockRequestDto.Industry;
-            stockForUpdate.MarketCap = updateStockRequestDto.MarketCap;
+            stockForUpdate.Symbol = stockModel.Symbol;
+            stockForUpdate.CompanyName = stockModel.CompanyName;
+            stockForUpdate.Purchase = stockModel.Purchase;
+            stockForUpdate.LastDiv = stockModel.LastDiv;
+            stockForUpdate.Industry = stockModel.Industry;
+            stockForUpdate.MarketCap = stockModel.MarketCap;
 
             await _context.SaveChangesAsync();
 
