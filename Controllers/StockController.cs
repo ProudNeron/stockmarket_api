@@ -23,7 +23,8 @@ namespace simple_api.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAll() {
+        public async Task<IActionResult> GetAll()
+        {
             var stocks = await _stockRepository.GetAllAsync();
             
             var stocksDto = stocks.Select(s => s.ToStockDto());
@@ -32,7 +33,8 @@ namespace simple_api.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetById([FromRoute] int id) {
+        public async Task<IActionResult> GetById([FromRoute] int id)
+        {
             var stock = await _stockRepository.GetByIdAsync(id);
 
             if (stock == null)
@@ -67,7 +69,8 @@ namespace simple_api.Controllers
 
         [HttpDelete]
         [Route("{id}")]
-        public async Task<IActionResult> Delete([FromRoute] int id) {
+        public async Task<IActionResult> Delete([FromRoute] int id)
+        {
             var stockModel = await _stockRepository.DeleteAsync(id);
 
             if (stockModel == null) {
