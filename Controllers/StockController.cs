@@ -73,7 +73,8 @@ namespace simple_api.Controllers
         {
             var stockModel = await _stockRepository.DeleteAsync(id);
 
-            if (stockModel == null) {
+            if (stockModel == null)
+            {
                 return NotFound();
             }
 
