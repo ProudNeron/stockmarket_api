@@ -9,10 +9,11 @@ namespace simple_api.interfaces
 {
     public interface IStockRepository
     {
-        public Task<List<Stock>> GetAllAsync();
-        public Task<Stock?> GetByIdAsync(int id);
-        public Task<Stock> Createasync(Stock stockModel);
-        public Task<Stock?> UpdateAsync(int id, UpdateStockRequestDto updateStockRequestDto);
-        public Task<Stock?> DeleteAsync(int id);
+        Task<List<Stock>> GetAllAsync();
+        Task<Stock?> GetByIdAsync(int id);
+        Task<Stock> CreateAsync(Stock stockModel);
+        Task<Stock?> UpdateAsync(int id, UpdateStockRequestDto updateStockRequestDto);
+        Task<Stock?> DeleteAsync(int id);  
+        Task<bool> IsStockExist(int id);
     }
 }

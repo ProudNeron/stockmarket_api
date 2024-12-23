@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using simple_api.Dtos.Comment;
 using simple_api.interfaces;
 using simple_api.Mappers;
 
@@ -13,10 +14,12 @@ namespace simple_api.Controllers
     public class CommentController : ControllerBase
     {
         private readonly ICommentRepository _commentRepository;
+        private readonly IStockRepository _stockRepository;
 
-        public CommentController(ICommentRepository commentRepository)
+        public CommentController(ICommentRepository commentRepository, IStockRepository stockRepository)
         {
             _commentRepository = commentRepository;
+            _stockRepository = stockRepository;
         }
 
         [HttpGet]
@@ -38,6 +41,19 @@ namespace simple_api.Controllers
             }
 
             return Ok(comment.ToCommentDto());
+        }
+        [HttpPost("{stockId}")]
+        public async Task<IActionResult> Create([FromRoute] int stockId, 
+            [FromBody] CreateCommentDto commentDto)
+        {
+            if (!await _stockRepository.IsStockExist(stockId))
+            {
+                return BadRequest("Stock doesn't exist");
+            }
+
+            var commentModel = commentDto.ToCommentfromCreate(stockId);
+            await _commentRepository.CreateAsync(commentModel);
+            return CreatedAtAction(nameof(GetById), new {id = commentModel}, commentModel.ToCommentDto());
         }
     }
 }

@@ -20,7 +20,7 @@ namespace simple_api.Repository
             _context = context;
         }
 
-        public async Task<Stock> Createasync(Stock stockModel)
+        public async Task<Stock> CreateAsync(Stock stockModel)
         {
             await _context.Stocks.AddAsync(stockModel);
             await _context.SaveChangesAsync();
@@ -29,7 +29,7 @@ namespace simple_api.Repository
 
         public async Task<Stock?> DeleteAsync(int id)
         {
-            var stockModel = await _context.Stocks.FirstOrDefaultAsync(x => x.Id == id);
+            var stockModel = await _context.Stocks.FirstOrDefaultAsync(s => s.Id == id);
 
             if (stockModel == null) {
                 return null;
@@ -49,12 +49,17 @@ namespace simple_api.Repository
         public async Task<Stock?> GetByIdAsync(int id)
         {
             return await _context.Stocks.Include(c => c.Comments)
-                .FirstOrDefaultAsync(j => j.Id == id);
+                .FirstOrDefaultAsync(s => s.Id == id);
+        }
+
+        public Task<bool> IsStockExist(int id)
+        {
+            return _context.Stocks.AnyAsync(s => s.Id == id);
         }
 
         public async Task<Stock?> UpdateAsync(int id, UpdateStockRequestDto updateStockRequestDto)
         {
-            var stockForUpdate = await _context.Stocks.FirstOrDefaultAsync(x => x.Id == id);
+            var stockForUpdate = await _context.Stocks.FirstOrDefaultAsync(s => s.Id == id);
 
             if (stockForUpdate == null) {
                 return null;
