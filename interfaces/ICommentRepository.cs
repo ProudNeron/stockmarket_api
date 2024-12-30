@@ -2,10 +2,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using simple_api.Dtos.Comment;
-using simple_api.Models;
+using SimpleAPI.Dtos.Comment;
+using SimpleAPI.Models;
 
-namespace simple_api.interfaces
+namespace SimpleAPI.interfaces
 {
     public interface ICommentRepository
     {

@@ -2,10 +2,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using simple_api.Helpers;
-using simple_api.Models;
+using SimpleAPI.Helpers;
+using SimpleAPI.Models;
 
-namespace simple_api.interfaces
+namespace SimpleAPI.interfaces
 {
     public interface IStockRepository
     {

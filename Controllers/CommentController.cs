@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using simple_api.Dtos.Comment;
-using simple_api.interfaces;
-using simple_api.Mappers;
+using SimpleAPI.Dtos.Comment;
+using SimpleAPI.interfaces;
+using SimpleAPI.Mappers;
 
-namespace simple_api.Controllers
+namespace SimpleAPI.Controllers
 {
     [Route("api")]
     [ApiController]

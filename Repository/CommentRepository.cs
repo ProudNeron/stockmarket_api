@@ -5,12 +5,12 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging.Abstractions;
-using simple_api.Data;
-using simple_api.Dtos.Comment;
-using simple_api.interfaces;
-using simple_api.Models;
+using SimpleAPI.Data;
+using SimpleAPI.Dtos.Comment;
+using SimpleAPI.interfaces;
+using SimpleAPI.Models;
 
-namespace simple_api.Repository
+namespace SimpleAPI.Repository
 {
     public class CommentRepository : ICommentRepository
     {

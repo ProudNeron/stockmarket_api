@@ -5,11 +5,11 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using simple_api.Data;
+using SimpleAPI.Data;
 
 #nullable disable
 
-namespace simple_api.Migrations
+namespace SimpleAPI.Migrations
 {
     [DbContext(typeof(ApplicationDBContext))]
     [Migration("20241108111829_init")]

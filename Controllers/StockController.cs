@@ -3,16 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using simple_api.Data;
-using simple_api.Mappers;
-using simple_api.Dtos.Stock;
+using SimpleAPI.Data;
+using SimpleAPI.Mappers;
+using SimpleAPI.Dtos.Stock;
 using Microsoft.EntityFrameworkCore;
-using simple_api.interfaces;
-using simple_api.Repository;
+using SimpleAPI.interfaces;
+using SimpleAPI.Repository;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
-using simple_api.Helpers;
+using SimpleAPI.Helpers;
 
-namespace simple_api.Controllers
+namespace SimpleAPI.Controllers
 {
     [Route("simple_api/stock")]
     [ApiController]

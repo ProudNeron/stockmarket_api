@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace simple_api.Helpers
+namespace SimpleAPI.Helpers
 {
     public class QueryObject
     {
@@ -11,5 +11,7 @@ namespace simple_api.Helpers
         public string? CompanyName { get; set;} = null;
         public string? SortBy { get; set;} = null;
         public bool IsDecsending { get; set;} = false;
+        public int PageNumber { get; set;} = 1;
+        public int PageSize { get; set;} = 20;
     }
 }

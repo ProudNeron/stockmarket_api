@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
-using static simple_api.Constants.CommentConstant;
+using static SimpleAPI.Constants.CommentConstant;
 
-namespace simple_api.Dtos.Comment
+namespace SimpleAPI.Dtos.Comment
 {
     public class CommentDto
     {

@@ -2,11 +2,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using simple_api.Dtos.Stock;
-using simple_api.Models;
+using SimpleAPI.Dtos.Stock;
+using SimpleAPI.Models;
 
 
-namespace simple_api.Mappers
+namespace SimpleAPI.Mappers
 {
     public static class StockMappers
     {

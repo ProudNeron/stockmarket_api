@@ -5,13 +5,13 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using simple_api.Data;
-using simple_api.Dtos.Stock;
-using simple_api.Helpers;
-using simple_api.interfaces;
-using simple_api.Models;
+using SimpleAPI.Data;
+using SimpleAPI.Dtos.Stock;
+using SimpleAPI.Helpers;
+using SimpleAPI.interfaces;
+using SimpleAPI.Models;
 
-namespace simple_api.Repository
+namespace SimpleAPI.Repository
 {
     public class StockRepository : IStockRepository
     {
@@ -51,12 +51,21 @@ namespace simple_api.Repository
                 stocks = stocks.Where(s => s.CompanyName.Contains(query.CompanyName));
             }
 
-             if (!string.IsNullOrWhiteSpace(query.Symbol))
+            if (!string.IsNullOrWhiteSpace(query.Symbol))
             {
                 stocks = stocks.Where(s => s.Symbol.Contains(query.Symbol));
             }
 
-            return await stocks.ToListAsync();
+            if (!string.IsNullOrWhiteSpace(query.SortBy)) {
+                if (query.SortBy.Equals("CompanyName", StringComparison.OrdinalIgnoreCase)) {
+                    stocks = query.IsDecsending ? stocks.OrderByDescending(s => s.CompanyName)
+                        : stocks.OrderByDescending(s => s.CompanyName);
+                }
+            }
+
+            var skipNumber = (query.PageNumber - 1) * query.PageSize;
+
+            return await stocks.Skip(skipNumber).Take(query.PageSize).ToListAsync();
         }
 
         public async Task<Stock?> GetByIdAsync(int id)

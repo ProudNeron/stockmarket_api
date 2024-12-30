@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
-using static simple_api.Constants.StockConstants;
+using static SimpleAPI.Constants.StockConstants;
 
-namespace simple_api.Dtos.Stock
+namespace SimpleAPI.Dtos.Stock
 {
     public class UpdateStockRequestDto
     {

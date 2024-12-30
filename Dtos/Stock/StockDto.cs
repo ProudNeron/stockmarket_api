@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
-using simple_api.Dtos.Comment;
-using static simple_api.Constants.StockConstants;
+using SimpleAPI.Dtos.Comment;
+using static SimpleAPI.Constants.StockConstants;
 
-namespace simple_api.Dtos.Stock
+namespace SimpleAPI.Dtos.Stock
 {
     public class StockDto
     {

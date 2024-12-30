@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace simple_api.Models
+namespace SimpleAPI.Models
 {
     public class Comment
     {
