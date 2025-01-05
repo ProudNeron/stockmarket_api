@@ -1,10 +1,13 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace SimpleAPI.Models
 {
+    [Table("Comments")]
     public class Comment
     {
         public int Id { get; set; }
@@ -14,5 +17,7 @@ namespace SimpleAPI.Models
         public int? StockId { get; set; }
         //Navigation
         public Stock? Stock { get; set; }
+        public string AppUserId { get; set; }
+        public AppUser AppUser { get; set; }
     }
 }

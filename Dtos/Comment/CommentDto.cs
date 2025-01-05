@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
-using static SimpleAPI.Constants.CommentConstant;
+using static SimpleAPI.Constants.CommentConstants;
 
 namespace SimpleAPI.Dtos.Comment
 {
@@ -19,6 +19,7 @@ namespace SimpleAPI.Dtos.Comment
         [MaxLength(MaxLengthContent, ErrorMessage = MaxContentErrorMesssage)]
         public string Content { get; set;} = string.Empty;
         public DateTime CreatedOn { get; set; } = DateTime.Now;
+        public string CreatedBy { get; set;} = string.Empty;
         public int? StockId { get; set; }
         
     }

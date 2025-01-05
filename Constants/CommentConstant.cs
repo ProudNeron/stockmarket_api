@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace SimpleAPI.Constants
 {
-    public class CommentConstant
+    public static class CommentConstants
     {
         public const int MinLengthTitle = 1;
         public const int MaxLengthTitle = 200;

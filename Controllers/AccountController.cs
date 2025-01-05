@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using SimpleAPI.Dtos.Account;
 using SimpleAPI.interfaces;
 using SimpleAPI.Models;
+using static SimpleAPI.Constants.StatusConstants;
 
 namespace SimpleAPI.Controllers
 {
@@ -18,9 +19,8 @@ namespace SimpleAPI.Controllers
         private readonly UserManager<AppUser> _userManager;
         private readonly ITokenService _tokenService;
         private readonly SignInManager<AppUser> _signInManager;
-        public AccountController(
-            UserManager<AppUser> userManager,ITokenService tokenService,
-            SignInManager<AppUser> signInManager)
+        public AccountController(UserManager<AppUser> userManager,
+        ITokenService tokenService, SignInManager<AppUser> signInManager)
         {
             _userManager = userManager;
             _tokenService = tokenService;
@@ -28,36 +28,46 @@ namespace SimpleAPI.Controllers
         }
 
         [HttpPost("login")]
-        public async Task<IActionResult> Login(LoginDto loginDto)
+        public async Task<IActionResult> Login([FromBody] LoginDto loginDto)
         {
-            if (!ModelState.IsValid)
+            try
             {
-                return BadRequest(ModelState);
-            }
+                if (!ModelState.IsValid)
+                {
+                    return BadRequest(ModelState);
+                }
 
-            var user = await _userManager.Users.FirstOrDefaultAsync(u =>
+                var user = await _userManager.Users.FirstOrDefaultAsync(u =>
                 u.UserName == loginDto.UserName.ToLower());
 
-            if (user == null) {
-                return Unauthorized("Invalid username");
-            }
-
-            var result = await _signInManager
-                .CheckPasswordSignInAsync(user, loginDto.Password, false);
-
-            if (!result.Succeeded)
-            {
-                return Unauthorized("Username not found or password incorrect");
-            }
-
-            return Ok(
-                new NewUserDto
+                if (user == null)
                 {
-                    UserName = user.UserName,
-                    Email = user.Email,
-                    Token = _tokenService.CreateToken(user)
+                    return Unauthorized("Invalid username");
                 }
-            );
+
+                var result = await _signInManager
+                    .CheckPasswordSignInAsync(user, loginDto.Password, false);
+
+                if (!result.Succeeded)
+                {
+                    return Unauthorized("Username not found or password incorrect");
+                }
+
+                return Ok(
+                    new NewUserDto
+                    {
+                        UserName = user.UserName,
+                        Email = user.Email,
+                        Token = _tokenService.CreateToken(user)
+                    }
+                );
+            }
+            catch (Exception e)
+            {
+                return StatusCode(STATUS_CODE_500, e);
+            }
+
+
         }
 
         [HttpPost("register")]
@@ -65,7 +75,8 @@ namespace SimpleAPI.Controllers
         {
             try
             {
-                if (!ModelState.IsValid) {
+                if (!ModelState.IsValid)
+                {
                     return BadRequest(ModelState);
                 }
 
@@ -77,7 +88,8 @@ namespace SimpleAPI.Controllers
 
                 var createdUser = await _userManager.CreateAsync(appUser, registerDto.Password);
 
-                if (createdUser.Succeeded) {
+                if (createdUser.Succeeded)
+                {
                     var roleResult = await _userManager.AddToRoleAsync(appUser, "User");
                     if (roleResult.Succeeded)
                     {
@@ -91,14 +103,14 @@ namespace SimpleAPI.Controllers
                         );
                     }
 
-                    return StatusCode(500, roleResult.Errors);
+                    return StatusCode(STATUS_CODE_500, roleResult.Errors);
                 }
 
-                return StatusCode(500, createdUser.Errors);
+                return StatusCode(STATUS_CODE_500, createdUser.Errors);
             }
             catch (Exception e)
             {
-                return StatusCode(500, e);
+                return StatusCode(STATUS_CODE_500, e);
             }
         }
     }

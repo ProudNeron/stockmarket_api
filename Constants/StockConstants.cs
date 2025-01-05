@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace SimpleAPI.Constants
 {
-    public class StockConstants
+    public static class StockConstants
     {
         public const int MinLengthSymbol = 3;
         public const int MaxLengthSymbol = 280;

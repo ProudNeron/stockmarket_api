@@ -2,10 +2,14 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using SimpleAPI.Dtos.Comment;
+using SimpleAPI.Extensions;
 using SimpleAPI.interfaces;
 using SimpleAPI.Mappers;
+using SimpleAPI.Models;
 
 namespace SimpleAPI.Controllers
 {
@@ -15,14 +19,18 @@ namespace SimpleAPI.Controllers
     {
         private readonly ICommentRepository _commentRepository;
         private readonly IStockRepository _stockRepository;
+        private readonly UserManager<AppUser> _userManager;
 
-        public CommentController(ICommentRepository commentRepository, IStockRepository stockRepository)
+        public CommentController(ICommentRepository commentRepository,
+        IStockRepository stockRepository, UserManager<AppUser> userManager)
         {
             _commentRepository = commentRepository;
             _stockRepository = stockRepository;
+            _userManager = userManager;
         }
 
         [HttpGet]
+        [Authorize]
         public async Task<IActionResult> GetAll()
         {
             var comments = await _commentRepository.GetAllAsync();
@@ -57,7 +65,11 @@ namespace SimpleAPI.Controllers
                 return BadRequest("Stock doesn't exist");
             }
 
+            var username = User.GetUsername();
+            var appUser = await _userManager.FindByNameAsync(username);
+
             var commentModel = commentDto.ToCommentfromCreate(stockId);
+            commentModel.AppUserId = appUser.Id;
             await _commentRepository.CreateAsync(commentModel);
             return CreatedAtAction(nameof(GetById), new {id = commentModel.Id}, commentModel.ToCommentDto());
         }
