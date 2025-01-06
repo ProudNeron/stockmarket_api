@@ -44,7 +44,7 @@ namespace SimpleAPI.Repository
 
         public async Task<List<Stock>> GetAllAsync(QueryObject query)
         {
-            var stocks = _context.Stocks.Include(c => c.Comments).ThenInclude(c => c.AppUser)
+            var stocks = _context.Stocks.Include(c => c.Comments).ThenInclude(s => s.AppUser)
             .AsQueryable();
 
             if (!string.IsNullOrWhiteSpace(query.CompanyName))
@@ -71,7 +71,7 @@ namespace SimpleAPI.Repository
 
         public async Task<Stock?> GetByIdAsync(int id)
         {
-            return await _context.Stocks.Include(c => c.Comments).ThenInclude(c => c.AppUser)
+            return await _context.Stocks.Include(s => s.Comments).ThenInclude(s => s.AppUser)
                 .FirstOrDefaultAsync(s => s.Id == id);
         }
 

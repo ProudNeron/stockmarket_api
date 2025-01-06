@@ -38,6 +38,7 @@ namespace SimpleAPI.Mappers
             {
                 Title = commentDto.Title,
                 Content = commentDto.Content,
+                StockId = null
             };
         }
     }
