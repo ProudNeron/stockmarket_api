@@ -33,7 +33,7 @@ namespace SimpleAPI.Controllers
             
             var stocksDto = stocks.Select(s => s.ToStockDto()).ToList();
             
-            return Ok(stocks);
+            return Ok(stocksDto);
         }
 
         [HttpGet("{id:int}")]

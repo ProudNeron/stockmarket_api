@@ -7,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging.Abstractions;
 using SimpleAPI.Data;
 using SimpleAPI.Dtos.Comment;
+using SimpleAPI.Helpers;
 using SimpleAPI.interfaces;
 using SimpleAPI.Models;
 
@@ -27,9 +28,21 @@ namespace SimpleAPI.Repository
             return commentModel;
         }
 
-        public async Task<List<Comment>> GetAllAsync()
+        public async Task<List<Comment>> GetAllAsync(CommentQueryObject queryObject)
         {
-            return await _context.Comments.Include(c => c.AppUser).ToListAsync();
+            var comments = _context.Comments.Include(c => c.AppUser).AsQueryable();
+
+            if (!string.IsNullOrWhiteSpace(queryObject.Symbol))
+            {
+                comments = comments.Where(c =>
+                    c.Stock.Symbol.ToLower() == queryObject.Symbol.ToLower());
+            }
+            if (queryObject.IsDecsending)
+            {
+                comments.OrderByDescending(c => c.CreatedOn);
+            }
+
+            return await comments.ToListAsync();
         }
 
         public async Task<Comment?> GetByIdAsync(int id)
