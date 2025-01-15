@@ -1,12 +1,5 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Logging.Abstractions;
 using SimpleAPI.Data;
-using SimpleAPI.Dtos.Comment;
 using SimpleAPI.Helpers;
 using SimpleAPI.interfaces;
 using SimpleAPI.Models;

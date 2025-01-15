@@ -1,15 +1,7 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using SimpleAPI.Data;
 using SimpleAPI.Mappers;
 using SimpleAPI.Dtos.Stock;
-using Microsoft.EntityFrameworkCore;
 using SimpleAPI.interfaces;
-using SimpleAPI.Repository;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using SimpleAPI.Helpers;
 using Microsoft.AspNetCore.Authorization;
 

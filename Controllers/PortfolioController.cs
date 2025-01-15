@@ -1,7 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -19,14 +15,17 @@ namespace SimpleAPI.Controllers
         private readonly IStockRepository _stockRepository;
         private readonly IPortfolioRepository _portfolioRepository;
         private readonly IFMPService _fmpService;
+        private readonly ILogger<PortfolioController> _logger;
         public PortfolioController(UserManager<AppUser> userManager,
         IStockRepository stockRepository, IPortfolioRepository portfolioRepository,
-        IFMPService fmpService)
+        IFMPService fmpService,
+        ILogger<PortfolioController> logger)
         {
             _stockRepository = stockRepository;
             _userManager = userManager;
             _portfolioRepository = portfolioRepository;
             _fmpService = fmpService;
+            _logger = logger;
         }
         
         [HttpGet]
@@ -82,6 +81,7 @@ namespace SimpleAPI.Controllers
 
             if (newPortfolioModel == null)
             {
+                _logger.LogError("TouchDown");
                 return StatusCode(STATUS_CODE_500, "Could not create");
             }
 
